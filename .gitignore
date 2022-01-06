@@ -1,0 +1,6 @@
+/venv
+/.idea
+/charts
+/__pycache__
+
+my_telegram.py

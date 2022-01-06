@@ -104,6 +104,9 @@ def get_formatted_message(data):
 
 def generate_baseline():
     companies = get_recent_insider_buys()
+    if not companies:
+        bot.sendMessage(bot_chatID, "No insider trading found today :(")
+        return
     for company in companies:
         ticker_price = pdr.get_data_yahoo(company["ticker"], datetime.date.today() - datetime.timedelta(days=365),
                                           datetime.date.today())
@@ -122,7 +125,7 @@ def generate_baseline():
         bot.sendPhoto(bot_chatID, photo=open(filename, 'rb'))
 
 def clear_chat():
-    msg = bot.sendMessage(bot_chatID, "text", parse_mode="MarkdownV2")
+    msg = bot.sendMessage(bot_chatID, "Starting Check...")
     start = 0
     id = msg["message_id"]
     while True:
